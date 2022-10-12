@@ -48,6 +48,7 @@ const main = async () => {
             return accumulator + assignment.suitabilityScore;
         }, 0);
         console.log('Total Suitability Score', sum);
+        console.log('Average Suitability Score', sum / assignments.length);
         console.log('Total Routes assigned', assignments.length);
     } catch (error) {
         console.log('Error assigning routes.', error);

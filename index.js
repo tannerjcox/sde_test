@@ -19,25 +19,33 @@ program
 
 const main = async () => {
     try {
-        let driverFilePath = await (async () => {
-            return await promptly.prompt('Driver File? [./files/drivers.txt]', { default: '' });
-        })();
-
         const srcPath = path.join(process.cwd(), 'files');
 
+        let driverFilePath = await (async () => {
+            let defaultPath = path.join(srcPath, 'drivers.txt');
+            return await promptly.prompt(
+                `Driver File? [${ defaultPath }]`,
+                { default: defaultPath });
+        })();
+
+
         const driverFileInterface = readline.createInterface({
-            input: openFile(driverFilePath ? driverFilePath : path.join(srcPath, 'drivers.txt')),
+            input: openFile(driverFilePath),
             crlfDelay: Infinity
         });
 
         let drivers = await processDriverFile(driverFileInterface);
 
         let routesFilePath = await (async () => {
-            return await promptly.prompt('Routes File? [./files/routes.txt] ', { default: '' });
+            let defaultPath = path.join(srcPath, 'routes.txt');
+            return await promptly.prompt(
+                `Routes File? [${ defaultPath }]`,
+                { default: defaultPath }
+            );
         })();
 
         const routeFileInterface = readline.createInterface({
-            input: openFile(routesFilePath ? routesFilePath : path.join(srcPath, 'routes.txt')),
+            input: openFile(routesFilePath),
             crlfDelay: Infinity
         });
 

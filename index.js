@@ -34,7 +34,12 @@ const main = async () => {
 
         let assignments = await assignDriversToRoutes(routeFileInterface, drivers);
 
-        console.log('Routes assigned successfully!', assignments, assignments.length);
+        console.log('Routes assigned successfully!', assignments);
+        const sum = assignments.reduce((accumulator, assignment) => {
+            return accumulator + assignment.suitabilityScore;
+        }, 0)
+        console.log('Total Suitability Score', sum);
+        console.log('Total Routes assigned', assignments.length);
     } catch (error) {
         console.log('Error assigning routes.', error);
     }
